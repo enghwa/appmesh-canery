@@ -16,12 +16,14 @@ cd appmesh-config
 
 2. Deploy Services in Kubernetes Cluster
 
+This will deploy Order, Product v1 and and Customer v1.
+
 ```
 cd ../k8s-deploy
 ./deploy_v1.sh
 ```
 
-3. Deploy Curler to check the output of services
+3. Check the Oder Service
 
 use ```kubectl svc``` to get the ELB endpoint of ```order``` service.
 run:
@@ -32,11 +34,11 @@ This should show the output of all the three services. (Keep it running in diffe
 ## Canary checking
 
 ### Deploy v1.5 of Customer SVC
-1. Deploy services of v1.5 in EKS cluster
+1. Deploy Customer service v1.5 in EKS cluster
 ```
 ./deploy_v15.sh
 ```
-2. Deploy appmesh config for canary
+2. Deploy appmesh config for canary (Customers V1.5 with 75% weight)
 ```
 cd ../appmesh-config
 ./deploy-canary-v15.sh
@@ -50,11 +52,17 @@ cd ../k8s-deploy
 ./deploy_v2.sh
 ```
 2. Deploy appmesh config for canary
+
+This will send 50% traffic to Product v2.
+
 ```
 cd ../appmesh-config
 ./deploy-canary-v2.sh
 ```
 3. All-in to Product v2
+
+This will send all traffic to Product v2.
+
 ```
 aws appmesh update-route --cli-input-json file://V2/product-all-in-v2-r.json
 
