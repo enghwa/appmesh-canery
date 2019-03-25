@@ -54,6 +54,11 @@ cd ../k8s-deploy
 cd ../appmesh-config
 ./deploy-canary-v2.sh
 ```
+3. All-in to Product v2
+```
+aws appmesh update-route --cli-input-json file://V2/product-all-in-v2-r.json
+
+```
 
 ## Cleanup the Service Mesh and Deploys
 
